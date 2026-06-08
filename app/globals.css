@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light;
-  background: #ffffff;
-  color: #111827;
+  color-scheme: dark;
+  background: #0b1120;
+  color: #f8fafc;
 }
 
 html {
@@ -14,14 +14,14 @@ html {
 
 body {
   margin: 0;
-  background: #ffffff;
-  color: #111827;
+  background: #0b1120;
+  color: #f8fafc;
   font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 ::selection {
-  background: #dbeafe;
-  color: #1d4ed8;
+  background: #fed7aa;
+  color: #7c2d12;
 }
 
 .section-shell {
@@ -35,5 +35,56 @@ body {
 }
 
 .focus-ring:focus-visible {
-  outline-color: #2563eb;
+  outline-color: #f97316;
+}
+
+input,
+textarea {
+  background: #111827;
+  color: #f8fafc;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #94a3b8;
+}
+
+@layer utilities {
+  .bg-white {
+    background-color: #0f172a;
+  }
+
+  .bg-surface {
+    background-color: #111827;
+  }
+
+  .bg-ink {
+    background-color: #0b1120;
+  }
+
+  .border-line {
+    border-color: #253244;
+  }
+
+  .bg-blue-50 {
+    background-color: rgba(249, 115, 22, 0.12);
+  }
+
+  .border-blue-100,
+  .border-blue-200 {
+    border-color: rgba(251, 146, 60, 0.35);
+  }
+
+  .text-blue-100,
+  .text-blue-200 {
+    color: #fed7aa;
+  }
+
+  .hover\:bg-white\/10:hover {
+    background-color: rgba(249, 115, 22, 0.14);
+  }
+
+  .hover\:bg-blue-50:hover {
+    background-color: rgba(249, 115, 22, 0.12);
+  }
 }
