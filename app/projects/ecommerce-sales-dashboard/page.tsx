@@ -35,9 +35,20 @@ const fadeUp = {
 
 const navItems = ["About", "Skills", "Projects", "Dashboards", "Resume", "Contact"];
 
-const kpis = ["Total Sales", "Total Profit", "Total Orders", "Profit Margin", "Average Order Value", "Top Products"];
+const kpis = [
+  "Total Revenue",
+  "Total Profit",
+  "Total Quantity Sold",
+  "Average Revenue per Transaction",
+  "Average Profit per Transaction",
+  "YoY Revenue Growth",
+  "YoY Profit Growth",
+  "YoY Quantity Growth",
+  "YoY Average Revenue Growth",
+  "YoY Average Profit Growth"
+];
 
-const tools = ["Power BI", "Power Query", "DAX", "Excel"];
+const tools = ["Power BI", "Power Query", "DAX", "Data Modeling", "Business Intelligence", "Data Visualization"];
 
 const skills = [
   "Dashboard Development",
@@ -45,6 +56,9 @@ const skills = [
   "Data Transformation",
   "KPI Analysis",
   "Trend Analysis",
+  "Year-over-Year Analysis",
+  "Power Query M",
+  "Data Modeling",
   "Data Visualization",
   "Business Insight Communication"
 ];
@@ -54,73 +68,103 @@ const sections = [
     title: "Project Overview",
     icon: BarChart3,
     text:
-      "The Interactive E-commerce Sales Analytics Dashboard (2022-2024) is a Power BI project built to analyze sales performance, profitability, customer behavior, and product trends across multiple years. The dashboard is designed for business users who need a clear view of performance drivers and opportunities."
+      "This project analyzes the sales performance of an e-commerce company over a three-year period from 2022 to 2024. The dashboard explores revenue trends, profitability, product performance, category performance, regional performance, and year-over-year growth to identify key business drivers and areas requiring improvement."
   },
   {
     title: "Business Problem",
     icon: Target,
     text:
-      "E-commerce teams often collect sales data across products, customers, dates, and categories, but struggle to turn that raw data into timely business decisions. The project addresses the need for a centralized dashboard that makes revenue trends, profit performance, and operational priorities easier to understand."
+      "Understanding sales performance is essential for business growth, but raw sales data does not automatically explain which products drive revenue, which categories are most profitable, where regional opportunities exist, or why performance changes over time. This dashboard turns historical sales records into actionable insight for strategy, marketing, and profitability decisions."
   },
   {
     title: "Dataset Description",
     icon: Database,
     text:
-      "The dataset covers e-commerce sales activity from 2022 to 2024, including order-level information, sales values, product/category fields, customer-related attributes, dates, and profitability measures used to build executive KPIs and trend analysis."
+      "The dataset was sourced from Kaggle and contains approximately 3,500 sales records spanning 2022 to 2024. Main fields include Order Date, Product Name, Product Category, Region, Quantity Sold, Revenue, and Profit, representing orders, products, categories, regions, sales transactions, and calendar dates."
   },
   {
     title: "Data Cleaning Process",
     icon: ShieldCheck,
     text:
-      "The cleaning process involved checking field consistency, reviewing missing or invalid values, correcting data types, standardizing date fields, validating sales and profit columns, and preparing the data for reliable analysis in Power BI."
+      "Power Query was used to prepare the sales data for analysis by assigning appropriate data types, checking field consistency, validating revenue and profit columns, standardizing dates, and preparing the model for reliable KPI and time intelligence calculations."
   },
   {
     title: "Data Transformation Process",
     icon: Layers3,
     text:
-      "Power Query was used to shape the dataset for reporting. Transformations included renaming columns, formatting dates, creating analysis-ready fields, preparing relationships, and structuring the model for clean KPI calculations and interactive filtering."
+      "A simple flat table model was implemented because of the dataset size. A custom Date Table was created using Power Query M Language, then connected to the sales fact table through a one-to-many relationship to support time intelligence and year-over-year DAX measures."
   },
   {
     title: "Analysis Performed",
     icon: TrendingUp,
     text:
-      "The analysis focused on year-over-year sales trends, profit movement, product performance, category contribution, customer behavior, and KPI patterns across the 2022-2024 reporting period."
+      "The analysis evaluated monthly revenue and profit trends, revenue and profit by region, product category performance, revenue and average quantity sold by product, yearly business performance, and year-over-year growth in revenue, profit, quantity, average revenue, and average profit."
   }
 ];
 
 const objectives = [
-  "Track e-commerce sales and profitability across 2022-2024",
-  "Identify products, categories, and periods driving performance",
-  "Create an interactive Power BI dashboard for business review",
-  "Translate raw sales data into clear KPIs and recommendations"
+  "Identify the months generating the highest revenue and profit",
+  "Determine the best-performing products by revenue",
+  "Evaluate product category performance",
+  "Compare product quantity sold across products",
+  "Analyze regional sales performance",
+  "Compare yearly business performance across the three-year period",
+  "Evaluate year-over-year growth in key business metrics"
 ];
 
 const dashboardFeatures = [
-  "Executive KPI cards for quick performance scanning",
-  "Sales and profit trend visuals across multiple years",
-  "Product and category performance breakdowns",
-  "Interactive filters for exploring business segments",
-  "Clean visual hierarchy for recruiter and stakeholder review"
+  "Executive-style one-page analytical dashboard",
+  "Dynamic KPI cards displaying year-over-year growth",
+  "Monthly revenue and profit trend analysis",
+  "Revenue and profit by region",
+  "Revenue and average profit by product category",
+  "Revenue and average quantity sold by product",
+  "Dynamic year slicer for interactive filtering",
+  "Clustered column charts, line charts, combo charts, KPI cards, and slicers"
 ];
 
 const insights = [
-  "Sales performance can be understood more clearly when revenue, profit, and product trends are viewed together.",
-  "Interactive filtering helps reveal which products and periods contribute most to business results.",
-  "Profit-focused analysis adds stronger decision value than sales volume alone.",
-  "A clean dashboard layout helps stakeholders move from observation to action faster."
+  "2023 recorded the strongest business performance, achieving the highest revenue, profit, and quantity sold across the three-year period.",
+  "Despite a slight increase in quantity sold, 2024 experienced a 4.26% decline in revenue and a 9.29% decline in profit, indicating possible pricing or cost-related challenges.",
+  "May consistently emerged as the strongest sales month, while February showed the weakest performance across multiple years.",
+  "January generated the highest profit, suggesting stronger profit margins despite lower sales volume compared to May.",
+  "The West region generated the highest overall revenue and profit, although the performance gap between regions remained relatively small.",
+  "Electronics significantly outperformed other categories in profitability, making it the company's strongest product category.",
+  "Office Products recorded the highest average revenue per transaction but the lowest overall profit, suggesting premium pricing but weak purchase frequency.",
+  "Camera sales generated the highest revenue among products, demonstrating strong customer demand for premium electronics despite relatively low purchase quantities."
 ];
 
 const recommendations = [
-  "Monitor high-performing products and prioritize them in promotional planning.",
-  "Review low-margin products to identify pricing, cost, or inventory issues.",
-  "Use year-over-year trend tracking to support forecasting and sales planning.",
-  "Continue improving the dashboard with real-time refresh and deeper customer segmentation."
+  "Increase marketing investment in the Electronics category to maximize revenue and profitability.",
+  "Reassess the Office Products strategy by improving promotional campaigns or expanding product variety to increase purchase frequency.",
+  "Investigate February's consistently weak performance and implement seasonal promotions to improve sales.",
+  "Replicate successful sales strategies from the West region across other regions.",
+  "Investigate the decline in 2024 revenue and profit despite stable sales volume to identify pricing, cost, or product mix issues."
 ];
 
 const challenges = [
-  "Designing the dashboard to remain clear while showing multiple business metrics.",
-  "Transforming raw sales fields into a model suitable for KPI analysis.",
-  "Balancing visual polish with practical recruiter and stakeholder readability."
+  "Keeping the dashboard executive-friendly while still covering products, categories, regions, monthly trends, and year-over-year performance.",
+  "Creating a custom Date Table and preparing the model for time intelligence calculations.",
+  "Designing KPI cards and visuals that communicate both historical performance and business implications clearly."
+];
+
+const businessQuestions = [
+  "Which products generate the highest revenue?",
+  "Which product categories contribute the most to company revenue?",
+  "Are revenue and profits increasing over time?",
+  "Which products generate the highest average sales value?",
+  "What are the monthly sales trends?",
+  "Which region performs best in terms of revenue and profit?"
+];
+
+const futureImprovements = [
+  "Incorporate additional years of sales data",
+  "Add customer demographics and segmentation",
+  "Build a star schema data model",
+  "Integrate predictive sales forecasting",
+  "Add drill-through analysis pages",
+  "Include geographical map visualizations",
+  "Use larger, less-clean datasets to simulate real-world data preparation scenarios"
 ];
 
 export default function ProjectDetailsPage() {
@@ -142,7 +186,7 @@ export default function ProjectDetailsPage() {
             Interactive E-commerce Sales Analytics Dashboard (2022-2024)
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-8 text-muted">
-            A business intelligence dashboard built to help stakeholders analyze sales trends, profitability, product performance, and actionable opportunities across three years of e-commerce activity.
+            An interactive Power BI dashboard analyzing e-commerce sales performance across products, categories, regions, and time to uncover trends, evaluate profitability, and support data-driven business decisions.
           </p>
           <div className="mt-8 flex flex-wrap gap-2">
             {tools.map((tool) => (
@@ -175,10 +219,10 @@ export default function ProjectDetailsPage() {
         <motion.div {...fadeUp}>
           <SectionLabel>Objectives</SectionLabel>
           <h2 className="mt-3 text-3xl font-bold tracking-normal text-ink md:text-4xl">
-            What the dashboard was built to answer.
+            What the dashboard was built to achieve.
           </h2>
           <p className="mt-4 text-base leading-7 text-muted">
-            The project is framed around practical business questions: how sales are performing, what is driving profit, and where decision makers should focus attention.
+            The project focuses on identifying the highest-performing products, categories, and regions while uncovering opportunities for strategic business improvement.
           </p>
         </motion.div>
         <ListCard items={objectives} />
@@ -205,11 +249,11 @@ export default function ProjectDetailsPage() {
       <section className="section-shell py-20">
         <SectionIntro
           eyebrow="Dashboard Preview"
-          title="Screenshot gallery placeholders."
-          text="Upload dashboard screenshots later and replace these placeholders while keeping the same polished gallery layout."
+          title="Dashboard screenshot gallery."
+          text="The repository includes screenshots for the overall dashboard and yearly views. These placeholders are ready for the 2022, 2023, and 2024 dashboard screenshots."
         />
         <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {["Executive Overview", "Sales Trends", "Product Performance"].map((title, index) => (
+          {["Overall Dashboard", "2022 Performance", "2023 Performance", "2024 Performance"].map((title, index) => (
             <motion.div key={title} {...fadeUp} transition={{ duration: 0.5, delay: index * 0.05, ease: "easeOut" }} className="rounded-lg border border-line bg-white p-4 shadow-sm">
               <div className="grid aspect-video place-items-center rounded-md border border-line bg-surface">
                 <div className="text-center">
@@ -226,9 +270,11 @@ export default function ProjectDetailsPage() {
       <section className="border-y border-line bg-surface py-20">
         <div className="section-shell grid gap-6 lg:grid-cols-2">
           <ContentPanel title="Dashboard Features" icon={PieChart} items={dashboardFeatures} />
+          <ContentPanel title="Business Questions Answered" icon={Target} items={businessQuestions} />
           <ContentPanel title="Key Insights" icon={TrendingUp} items={insights} />
           <ContentPanel title="Recommendations" icon={Target} items={recommendations} />
           <ContentPanel title="Challenges Encountered" icon={Wrench} items={challenges} />
+          <ContentPanel title="Future Improvements" icon={Layers3} items={futureImprovements} />
         </div>
       </section>
 
@@ -242,6 +288,22 @@ export default function ProjectDetailsPage() {
               </span>
             ))}
           </div>
+        </motion.article>
+        <motion.article {...fadeUp} transition={{ duration: 0.55, delay: 0.08, ease: "easeOut" }} className="rounded-lg border border-line bg-white p-6 shadow-sm">
+          <SectionLabel>How to Use</SectionLabel>
+          <ul className="mt-5 space-y-3">
+            {[
+              "Download the Power BI (.pbix) file from the project repository.",
+              "Open the file using Power BI Desktop.",
+              "Use the Year slicer to filter dashboard insights.",
+              "Explore trends across products, categories, regions, and time."
+            ].map((item) => (
+              <li key={item} className="flex gap-3 text-sm leading-6 text-muted">
+                <CheckCircle2 className="mt-1 shrink-0 text-accent" size={16} aria-hidden="true" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
         </motion.article>
         <motion.article {...fadeUp} transition={{ duration: 0.55, delay: 0.08, ease: "easeOut" }} className="rounded-lg border border-line bg-white p-6 shadow-sm">
           <SectionLabel>Skills Demonstrated</SectionLabel>
@@ -263,7 +325,7 @@ export default function ProjectDetailsPage() {
               A practical Power BI case study for business decision support.
             </h2>
             <p className="mt-4 text-base leading-7 text-blue-100">
-              This project demonstrates Andrew Udokang&apos;s ability to clean and transform sales data, create meaningful KPIs, design an interactive Power BI dashboard, and communicate insights in a way that supports business action.
+              This project demonstrates Andrew Udokang&apos;s ability to transform raw e-commerce sales data into actionable business insights using Power BI, Power Query, DAX, data modeling, and clear executive dashboard design.
             </p>
           </motion.div>
         </div>

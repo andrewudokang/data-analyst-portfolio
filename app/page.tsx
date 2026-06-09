@@ -76,12 +76,12 @@ const projects = [
     title: "Interactive E-commerce Sales Analytics Dashboard (2022-2024)",
     category: "Power BI",
     description:
-      "An interactive business intelligence dashboard analyzing e-commerce sales performance, profitability, customer behavior, and product trends across 2022-2024.",
+      "An interactive Power BI dashboard analyzing e-commerce sales performance across products, categories, regions, and time to uncover trends, evaluate profitability, and support data-driven business decisions.",
     problem:
-      "E-commerce decision makers needed a clear view of sales performance, profit drivers, product trends, and business opportunities across multiple years.",
+      "E-commerce stakeholders needed a clear way to understand revenue trends, profitability, product performance, category performance, regional performance, and year-over-year growth.",
     insights:
-      "Built an executive-ready Power BI experience that highlights revenue trends, KPI movement, high-performing products, customer behavior, and areas for business improvement.",
-    tools: ["Power BI", "DAX", "Power Query", "Excel"],
+      "Built an executive-style one-page dashboard with dynamic KPI cards, slicers, custom DAX measures, and recommendations for improving profitability and regional performance.",
+    tools: ["Power BI", "Power Query", "DAX", "Data Modeling"],
     href: "/projects/ecommerce-sales-dashboard",
     chart: [62, 75, 58, 86, 79, 94],
     status: "completed"
@@ -124,9 +124,9 @@ const projects = [
 const dashboards = [
   {
     title: "E-commerce Sales Analytics Dashboard",
-    objective: "Analyze sales, profitability, customer behavior, and product performance across 2022-2024.",
-    kpis: ["Total Sales", "Total Profit", "Orders", "Profit Margin", "Top Products"],
-    tools: ["Power BI", "DAX", "Power Query", "Excel"],
+    objective: "Analyze revenue, profit, quantity sold, product performance, category performance, regional performance, and year-over-year growth across 2022-2024.",
+    kpis: ["Total Revenue", "Total Profit", "Quantity Sold", "YoY Revenue Growth", "YoY Profit Growth"],
+    tools: ["Power BI", "Power Query", "DAX", "Data Modeling"],
     embedUrl: ""
   }
 ];
