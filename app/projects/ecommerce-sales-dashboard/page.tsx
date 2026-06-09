@@ -102,6 +102,25 @@ const sections = [
   }
 ];
 
+const dashboardImages = [
+  {
+    title: "Overall Dashboard",
+    src: "/Interactive E-commerce Sales Analytics Dashboard (2022–2024).png"
+  },
+  {
+    title: "2022 Performance",
+    src: "/Interactive E-commerce Sales Analytics Dashboard 2022.png"
+  },
+  {
+    title: "2023 Performance",
+    src: "/Interactive E-commerce Sales Analytics Dashboard 2023.png"
+  },
+  {
+    title: "2024 Performance",
+    src: "/Interactive E-commerce Sales Analytics Dashboard 2024.png"
+  }
+];
+
 const objectives = [
   "Identify the months generating the highest revenue and profit",
   "Determine the best-performing products by revenue",
@@ -253,15 +272,19 @@ export default function ProjectDetailsPage() {
           text="The repository includes screenshots for the overall dashboard and yearly views. These placeholders are ready for the 2022, 2023, and 2024 dashboard screenshots."
         />
         <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {["Overall Dashboard", "2022 Performance", "2023 Performance", "2024 Performance"].map((title, index) => (
-            <motion.div key={title} {...fadeUp} transition={{ duration: 0.5, delay: index * 0.05, ease: "easeOut" }} className="rounded-lg border border-line bg-white p-4 shadow-sm">
-              <div className="grid aspect-video place-items-center rounded-md border border-line bg-surface">
-                <div className="text-center">
-                  <ImagePlus className="mx-auto text-accent" size={42} aria-hidden="true" />
-                  <p className="mt-3 text-sm font-bold text-ink">{title}</p>
-                  <p className="mt-1 text-xs text-muted">Dashboard screenshot placeholder</p>
-                </div>
-              </div>
+          {dashboardImages.map((image, index) => (
+            <motion.div
+              key={image.title}
+              {...fadeUp}
+              transition={{ duration: 0.5, delay: index * 0.05, ease: "easeOut" }}
+              className="rounded-lg border border-line bg-white p-4 shadow-sm"
+            >
+              <img
+                src={`${basePath}${image.src}`}
+                alt={`${image.title} dashboard screenshot`}
+                className="aspect-video w-full rounded-md border border-line object-cover"
+              />
+              <p className="mt-4 text-sm font-bold text-ink">{image.title}</p>
             </motion.div>
           ))}
         </div>
