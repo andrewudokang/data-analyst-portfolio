@@ -338,7 +338,7 @@ export default function ProjectDetailsPage() {
 
 function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-orange-500/25 bg-[#070B14]/95 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur">
       <nav className="section-shell flex h-16 items-center justify-between">
         <Link href="/" className="focus-ring text-sm font-bold uppercase text-ink">
           Andrew Udokang
@@ -355,7 +355,7 @@ function Header() {
           Resume
         </a>
       </nav>
-      <div className="section-shell flex h-11 items-center gap-5 overflow-x-auto border-t border-line lg:hidden">
+      <div className="section-shell flex h-11 items-center gap-5 overflow-x-auto border-t border-orange-500/20 lg:hidden">
         {navItems.map((item) => (
           <Link key={item} href={`/#${item.toLowerCase()}`} className="focus-ring shrink-0 text-sm font-semibold text-muted transition hover:text-accent">
             {item}

@@ -95,7 +95,7 @@ const projects = [
     tools: ["Excel", "Power Query", "Pivot Tables"],
     href: "",
     chart: [34, 46, 42, 55, 49, 60],
-    status: "coming-soon"
+    status: "hidden"
   },
   {
     title: "SQL Customer Analytics Project",
@@ -106,7 +106,7 @@ const projects = [
     tools: ["SQL", "MySQL"],
     href: "",
     chart: [30, 39, 44, 52, 57, 64],
-    status: "coming-soon"
+    status: "hidden"
   },
   {
     title: "Python Data Analysis Project",
@@ -117,7 +117,7 @@ const projects = [
     tools: ["Python", "Pandas", "Data Cleaning"],
     href: "",
     chart: [28, 36, 45, 50, 58, 66],
-    status: "coming-soon"
+    status: "hidden"
   }
 ];
 
@@ -169,11 +169,13 @@ export default function Home() {
 
   const filteredProjects = useMemo(() => {
     if (activeFilter === "All") {
-      return projects;
+      return projects.filter((project) => project.status === "completed");
     }
 
-    return projects.filter((project) =>
-      project.tools.some((tool) => tool.toLowerCase().includes(activeFilter.toLowerCase())) || project.category === activeFilter
+    return projects.filter(
+      (project) =>
+        project.status === "completed" &&
+        (project.tools.some((tool) => tool.toLowerCase().includes(activeFilter.toLowerCase())) || project.category === activeFilter)
     );
   }, [activeFilter]);
 
@@ -358,17 +360,24 @@ export default function Home() {
             <SectionIntro
               eyebrow="Projects"
               title="Business intelligence project work with room for future case studies."
-              text="The completed Power BI project is available now. Excel, SQL, and Python projects are intentionally marked as coming soon until their case studies are ready."
+              text="The completed Power BI project is available now. Additional Excel, SQL, and Python case studies will be added when they are ready."
             />
             <div className="flex flex-wrap gap-2" aria-label="Project filters">
               {projectFilters.map((filter) => (
                 <button
                   key={filter}
                   type="button"
-                  onClick={() => setActiveFilter(filter)}
+                  disabled={!["All", "Power BI"].includes(filter)}
+                  onClick={() => {
+                    if (["All", "Power BI"].includes(filter)) {
+                      setActiveFilter(filter);
+                    }
+                  }}
                   className={`focus-ring h-10 rounded-md border px-4 text-sm font-semibold transition ${
                     activeFilter === filter
                       ? "border-accent bg-accent text-white"
+                      : !["All", "Power BI"].includes(filter)
+                        ? "cursor-not-allowed border-line bg-white text-muted opacity-35 grayscale"
                       : "border-line bg-white text-muted hover:border-accent hover:text-accent"
                   }`}
                 >
@@ -538,7 +547,7 @@ export default function Home() {
 
 function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-orange-500/25 bg-[#070B14]/95 shadow-[0_12px_40px_rgba(0,0,0,0.35)] backdrop-blur">
       <nav className="section-shell flex h-16 items-center justify-between">
         <Link href="/" className="focus-ring text-sm font-bold uppercase text-ink">
           Andrew Udokang
@@ -555,7 +564,7 @@ function Header() {
           Resume
         </a>
       </nav>
-      <div className="section-shell flex h-11 items-center gap-5 overflow-x-auto border-t border-line lg:hidden">
+      <div className="section-shell flex h-11 items-center gap-5 overflow-x-auto border-t border-orange-500/20 lg:hidden">
         {navItems.map((item) => (
           <a key={item} href={`/#${item.toLowerCase()}`} className="focus-ring shrink-0 text-sm font-semibold text-muted transition hover:text-accent">
             {item}
