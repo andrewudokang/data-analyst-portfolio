@@ -16,6 +16,7 @@ import {
   GraduationCap,
   Layers3,
   Linkedin,
+  Lock,
   Mail,
   PieChart,
   Send,
@@ -24,8 +25,11 @@ import {
   TrendingUp,
   UserRound
 } from "lucide-react";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 import type { FormEvent, ReactNode } from "react";
+
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const fadeUp = {
   initial: { opacity: 0, y: 22 },
@@ -37,9 +41,9 @@ const fadeUp = {
 const navItems = ["About", "Skills", "Projects", "Dashboards", "Resume", "Contact"];
 
 const heroStats = [
-  { label: "Projects Completed", value: "8+", detail: "case-study ready" },
-  { label: "Dashboards Built", value: "5+", detail: "Power BI and Excel" },
-  { label: "Technologies Used", value: "7", detail: "analytics stack" }
+  { label: "Completed Project", value: "1", detail: "Power BI case study" },
+  { label: "Dashboards Built", value: "1", detail: "interactive sales dashboard" },
+  { label: "Technologies Used", value: "4", detail: "Power BI, SQL, Excel, Python" }
 ];
 
 const skillGroups = [
@@ -66,88 +70,72 @@ const skillGroups = [
 ];
 
 const projectFilters = ["All", "Excel", "SQL", "Power BI", "Python"] as const;
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const projects = [
   {
-    title: "Sales Performance Dashboard",
-    problem: "Sales leaders needed a faster way to monitor revenue, product performance, and regional gaps without manually combining monthly spreadsheets.",
-    insights: "Identified underperforming product categories, highlighted regions with margin pressure, and created an executive KPI view for weekly reviews.",
-    tools: ["Power BI", "Excel", "DAX"],
-    github: "https://github.com",
-    live: "https://app.powerbi.com",
-    chart: [64, 78, 52, 88, 74, 92]
+    title: "Interactive E-commerce Sales Analytics Dashboard (2022-2024)",
+    category: "Power BI",
+    description:
+      "An interactive business intelligence dashboard analyzing e-commerce sales performance, profitability, customer behavior, and product trends across 2022-2024.",
+    problem:
+      "E-commerce decision makers needed a clear view of sales performance, profit drivers, product trends, and business opportunities across multiple years.",
+    insights:
+      "Built an executive-ready Power BI experience that highlights revenue trends, KPI movement, high-performing products, customer behavior, and areas for business improvement.",
+    tools: ["Power BI", "DAX", "Power Query", "Excel"],
+    href: "/projects/ecommerce-sales-dashboard",
+    chart: [62, 75, 58, 86, 79, 94],
+    status: "completed"
   },
   {
-    title: "Customer Churn SQL Analysis",
-    problem: "A subscription business needed to understand which customer segments were most likely to churn and where retention campaigns should focus.",
-    insights: "Segmented churn by tenure and plan type, surfaced retention risk patterns, and recommended targeted follow-up for high-value cohorts.",
-    tools: ["SQL", "MySQL", "Power BI"],
-    github: "https://github.com",
-    live: "https://app.powerbi.com",
-    chart: [42, 48, 60, 57, 69, 76]
+    title: "Excel Business Reporting Project",
+    category: "Excel",
+    description: "Planned Excel analytics project covering reporting automation, KPI tracking, and dashboard storytelling.",
+    problem: "Reserved for a future Excel case study.",
+    insights: "Coming soon.",
+    tools: ["Excel", "Power Query", "Pivot Tables"],
+    href: "",
+    chart: [34, 46, 42, 55, 49, 60],
+    status: "coming-soon"
   },
   {
-    title: "Retail Inventory Analysis",
-    problem: "Store managers lacked visibility into slow-moving products, stockouts, and reorder priorities across multiple retail locations.",
-    insights: "Ranked inventory risk, compared sell-through trends, and built recommendations to reduce overstock while protecting high-demand items.",
-    tools: ["Python", "Excel", "SQL"],
-    github: "https://github.com",
-    live: "https://example.com",
-    chart: [72, 61, 83, 68, 91, 80]
+    title: "SQL Customer Analytics Project",
+    category: "SQL",
+    description: "Planned SQL project focused on querying, segmentation, business analysis, and insight generation.",
+    problem: "Reserved for a future SQL case study.",
+    insights: "Coming soon.",
+    tools: ["SQL", "MySQL"],
+    href: "",
+    chart: [30, 39, 44, 52, 57, 64],
+    status: "coming-soon"
   },
   {
-    title: "Operations KPI Tracker",
-    problem: "Operations managers needed a single view of SLA performance, backlog movement, and weekly variance across service teams.",
-    insights: "Created a repeatable Excel dashboard that reduced manual reporting time and made SLA exceptions visible before review meetings.",
-    tools: ["Excel", "Power Query", "KPI Analysis"],
-    github: "https://github.com",
-    live: "https://example.com",
-    chart: [58, 66, 70, 82, 85, 89]
+    title: "Python Data Analysis Project",
+    category: "Python",
+    description: "Planned Python project covering data cleaning, exploratory analysis, and business recommendations.",
+    problem: "Reserved for a future Python case study.",
+    insights: "Coming soon.",
+    tools: ["Python", "Pandas", "Data Cleaning"],
+    href: "",
+    chart: [28, 36, 45, 50, 58, 66],
+    status: "coming-soon"
   }
 ];
 
 const dashboards = [
   {
-    title: "Executive Revenue Dashboard",
-    objective: "Help leadership track revenue, margin, and regional sales performance in one weekly view.",
-    kpis: ["Revenue", "Gross Margin", "Regional Growth", "Top Products"],
-    tools: ["Power BI", "DAX", "Excel"],
-    embedUrl: ""
-  },
-  {
-    title: "Customer Retention Dashboard",
-    objective: "Monitor churn indicators, customer cohorts, and retention opportunities across subscription plans.",
-    kpis: ["Churn Rate", "Retention", "Customer Lifetime Value", "Cohort Health"],
-    tools: ["Power BI", "SQL", "MySQL"],
-    embedUrl: ""
-  },
-  {
-    title: "Operations Performance Dashboard",
-    objective: "Track SLA performance, backlog, team productivity, and service quality for operational decision-making.",
-    kpis: ["SLA Rate", "Backlog", "Resolution Time", "Quality Score"],
-    tools: ["Power BI", "Excel", "Power Query"],
+    title: "E-commerce Sales Analytics Dashboard",
+    objective: "Analyze sales, profitability, customer behavior, and product performance across 2022-2024.",
+    kpis: ["Total Sales", "Total Profit", "Orders", "Profit Margin", "Top Products"],
+    tools: ["Power BI", "DAX", "Power Query", "Excel"],
     embedUrl: ""
   }
 ];
 
 const certifications = [
   {
-    title: "Data Analytics Professional Certificate",
-    organization: "Google Career Certificates",
-    date: "2026",
-    verification: "https://www.coursera.org"
-  },
-  {
-    title: "Power BI Data Analyst Associate",
-    organization: "Microsoft",
-    date: "2026",
-    verification: "https://learn.microsoft.com"
-  },
-  {
-    title: "SQL for Data Analysis",
-    organization: "Analytics Training Platform",
-    date: "2026",
+    title: "Data Analysis Certificate of Completion",
+    organization: "Digital World Academy",
+    date: "Completed",
     verification: "https://example.com"
   }
 ];
@@ -156,22 +144,22 @@ const resumeHighlights = [
   {
     title: "Education",
     icon: GraduationCap,
-    items: ["Degree or diploma in a data, business, finance, economics, or technology-related field", "Continuous learning through analytics projects and certifications"]
+    items: ["First Class Graduate in Mechanical Engineering", "Strong analytical foundation applied to business intelligence and data analytics"]
   },
   {
     title: "Technical Skills",
     icon: ShieldCheck,
-    items: ["Excel, SQL, Power BI, Python, MySQL", "Data cleaning, KPI analysis, dashboard development, and stakeholder reporting"]
+    items: ["Power BI, SQL, Excel, Python, MySQL", "Data cleaning, data transformation, KPI analysis, dashboard development, and insight communication"]
   },
   {
     title: "Projects",
     icon: BriefcaseBusiness,
-    items: ["Sales, churn, inventory, and operations analytics projects", "Portfolio case studies structured around business problems and measurable insights"]
+    items: ["Interactive E-commerce Sales Analytics Dashboard (2022-2024)", "Project work structured around business problems, insights, and recommendations"]
   },
   {
     title: "Certifications",
     icon: Award,
-    items: ["Data analytics, Power BI, and SQL certifications", "Verification-ready certificate links for recruiter review"]
+    items: ["Data Analysis Certificate of Completion from Digital World Academy", "Continuing development in analytics, visualization, and business intelligence"]
   }
 ];
 
@@ -185,7 +173,7 @@ export default function Home() {
     }
 
     return projects.filter((project) =>
-      project.tools.some((tool) => tool.toLowerCase().includes(activeFilter.toLowerCase()))
+      project.tools.some((tool) => tool.toLowerCase().includes(activeFilter.toLowerCase())) || project.category === activeFilter
     );
   }, [activeFilter]);
 
@@ -214,43 +202,20 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-white text-ink">
-      <header className="sticky top-0 z-50 border-b border-line bg-white/90 backdrop-blur">
-        <nav className="section-shell flex h-16 items-center justify-between">
-          <a href="#top" className="focus-ring text-sm font-bold uppercase text-ink">
-            Data Analyst
-          </a>
-          <div className="hidden items-center gap-6 lg:flex">
-            {navItems.map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`} className="focus-ring text-sm font-medium text-muted transition hover:text-accent">
-                {item}
-              </a>
-            ))}
-          </div>
-          <a href="#resume" className="focus-ring inline-flex h-10 items-center gap-2 rounded-md bg-accent px-4 text-sm font-semibold text-white transition hover:bg-accentDark">
-            <ArrowDownToLine size={16} aria-hidden="true" />
-            Resume
-          </a>
-        </nav>
-        <div className="section-shell flex h-11 items-center gap-5 overflow-x-auto border-t border-line lg:hidden">
-          {navItems.map((item) => (
-            <a key={item} href={`#${item.toLowerCase()}`} className="focus-ring shrink-0 text-sm font-semibold text-muted transition hover:text-accent">
-              {item}
-            </a>
-          ))}
-        </div>
-      </header>
+      <Header />
 
       <section id="top" className="section-shell grid min-h-[calc(100vh-108px)] items-center gap-12 py-14 lg:min-h-[calc(100vh-64px)] lg:grid-cols-[1.05fr_0.95fr] lg:py-20">
         <motion.div {...fadeUp}>
           <div className="mb-6 inline-flex items-center gap-2 rounded-md border border-blue-100 bg-blue-50 px-3 py-2 text-sm font-semibold text-accent">
             <Sparkles size={16} aria-hidden="true" />
-            Entry-level Data Analyst portfolio
+            Data Analyst based in Nigeria
           </div>
+          <p className="mb-4 text-lg font-semibold text-muted">Andrew Udokang</p>
           <h1 className="max-w-3xl text-5xl font-bold leading-tight tracking-normal text-ink sm:text-6xl lg:text-7xl">
             Turning Data Into Business Insights
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-muted">
-            Data Analyst skilled in Excel, SQL, Power BI and Python.
+            Data Analyst skilled in Power BI, SQL, Excel, and Python. I turn raw data into clear dashboards, KPI stories, and actionable recommendations for business decision-making.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a href={`${basePath}/resume.pdf`} className="focus-ring inline-flex h-12 items-center justify-center gap-2 rounded-md bg-accent px-5 text-sm font-semibold text-white transition hover:bg-accentDark">
@@ -271,8 +236,8 @@ export default function Home() {
                 <div className="mx-auto mb-5 flex h-28 w-28 items-center justify-center rounded-full bg-blue-50 text-accent">
                   <UserRound size={64} aria-hidden="true" />
                 </div>
-                <p className="text-base font-bold text-ink">Data Analyst</p>
-                <p className="mt-2 max-w-56 text-sm leading-6 text-muted">Excel, SQL, Power BI, Python</p>
+                <p className="text-base font-bold text-ink">Andrew Udokang</p>
+                <p className="mt-2 max-w-56 text-sm leading-6 text-muted">Data Analyst | Power BI | SQL | Excel | Python</p>
               </div>
             </div>
           </div>
@@ -301,17 +266,17 @@ export default function Home() {
           <motion.div {...fadeUp}>
             <SectionLabel>About Me</SectionLabel>
             <h2 className="mt-3 text-3xl font-bold tracking-normal text-ink md:text-4xl">
-              I connect business questions to clear analysis and practical recommendations.
+              I build dashboards and analysis that help teams understand what is happening and what to do next.
             </h2>
             <div className="mt-6 space-y-4 text-base leading-7 text-muted">
               <p>
-                My data analytics journey is built around curiosity, structure, and a strong interest in how businesses make better decisions. I enjoy taking raw data, cleaning it, finding the patterns that matter, and translating those patterns into insight.
+                I am Andrew Udokang, a Data Analyst in Nigeria with a First Class background in Mechanical Engineering and a growing portfolio in business intelligence, dashboard development, and data storytelling.
               </p>
               <p>
-                I approach problems by first clarifying the decision that needs support, then choosing the right mix of Excel, SQL, Power BI, and Python to explore the data. The goal is not just a clean chart, but a useful answer.
+                My strength is combining analytical problem-solving with practical data tools: Power BI for interactive dashboards, SQL for structured analysis, Excel for reporting, and Python for data cleaning and exploration.
               </p>
               <p>
-                My portfolio focuses on data storytelling: dashboards, reports, and case studies that help stakeholders understand what changed, why it matters, and what action to take next.
+                I focus on turning raw data into actionable business insights through clean KPI design, thoughtful visualization, and concise recommendations that support better decisions.
               </p>
             </div>
           </motion.div>
@@ -320,12 +285,12 @@ export default function Home() {
             <div className="mb-5 flex items-center justify-between">
               <div>
                 <p className="text-sm font-bold text-ink">Insight Workflow</p>
-                <p className="mt-1 text-sm text-muted">Question to decision</p>
+                <p className="mt-1 text-sm text-muted">Raw data to business action</p>
               </div>
               <TrendingUp className="text-accent" size={24} aria-hidden="true" />
             </div>
             <div className="space-y-4">
-              {["Clean data source", "Analyze trends", "Build dashboard", "Recommend action"].map((step, index) => (
+              {["Clean and model data", "Analyze trends and KPIs", "Build dashboard views", "Recommend business actions"].map((step, index) => (
                 <div key={step} className="flex items-center gap-4">
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-blue-50 text-sm font-bold text-accent">{index + 1}</span>
                   <div className="h-3 flex-1 rounded-full bg-surface">
@@ -337,12 +302,12 @@ export default function Home() {
                       className="h-3 rounded-full bg-accent"
                     />
                   </div>
-                  <span className="w-28 text-sm font-semibold text-ink">{step}</span>
+                  <span className="w-32 text-sm font-semibold text-ink">{step}</span>
                 </div>
               ))}
             </div>
             <div className="mt-8 grid grid-cols-2 gap-3">
-              {["KPI clarity", "Trend context", "Clean models", "Actionable story"].map((item) => (
+              {["Dashboard clarity", "KPI thinking", "Data storytelling", "Business insight"].map((item) => (
                 <div key={item} className="flex items-center gap-2 rounded-md border border-line px-3 py-3 text-sm font-semibold text-ink">
                   <CheckCircle2 size={16} className="text-accent" aria-hidden="true" />
                   {item}
@@ -356,8 +321,8 @@ export default function Home() {
       <section id="skills" className="section-shell py-20">
         <SectionIntro
           eyebrow="Skills"
-          title="A focused analytics toolkit for entry-level data analyst roles."
-          text="Grouped around the tools and techniques recruiters most often screen for in data analyst and business intelligence roles."
+          title="A focused analytics toolkit for Data Analyst and BI Analyst roles."
+          text="Tools and techniques used to clean data, analyze performance, build dashboards, and communicate insights to business stakeholders."
         />
         <div className="mt-10 grid gap-5 md:grid-cols-2">
           {skillGroups.map((group, index) => {
@@ -392,8 +357,8 @@ export default function Home() {
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <SectionIntro
               eyebrow="Projects"
-              title="Case studies that show business thinking, not just tools."
-              text="Each project card is structured for recruiter scanning: business problem, key insight, tools, and links to evidence."
+              title="Business intelligence project work with room for future case studies."
+              text="The completed Power BI project is available now. Excel, SQL, and Python projects are intentionally marked as coming soon until their case studies are ready."
             />
             <div className="flex flex-wrap gap-2" aria-label="Project filters">
               {projectFilters.map((filter) => (
@@ -415,41 +380,7 @@ export default function Home() {
 
           <div className="mt-10 grid gap-6 lg:grid-cols-2">
             {filteredProjects.map((project, index) => (
-              <motion.article
-                key={project.title}
-                layout
-                initial={{ opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: index * 0.04, ease: "easeOut" }}
-                whileHover={{ y: -5 }}
-                className="overflow-hidden rounded-lg border border-line bg-white shadow-sm transition-shadow hover:shadow-soft"
-              >
-                <ProjectPreview title={project.title} values={project.chart} />
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-ink">{project.title}</h3>
-                  <div className="mt-5 grid gap-4 md:grid-cols-2">
-                    <InfoBlock title="Business Problem" text={project.problem} />
-                    <InfoBlock title="Key Insights" text={project.insights} />
-                  </div>
-                  <div className="mt-6 flex flex-wrap gap-2">
-                    {project.tools.map((tool) => (
-                      <span key={tool} className="rounded-md border border-line bg-surface px-3 py-1.5 text-xs font-semibold text-muted">
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                    <a href={project.github} className="focus-ring inline-flex h-11 items-center justify-center gap-2 rounded-md border border-line px-4 text-sm font-semibold text-ink transition hover:border-accent hover:text-accent">
-                      <Github size={16} aria-hidden="true" />
-                      GitHub
-                    </a>
-                    <a href={project.live} className="focus-ring inline-flex h-11 items-center justify-center gap-2 rounded-md bg-accent px-4 text-sm font-semibold text-white transition hover:bg-accentDark">
-                      <BarChart3 size={16} aria-hidden="true" />
-                      Live Dashboard
-                    </a>
-                  </div>
-                </div>
-              </motion.article>
+              <ProjectCard key={project.title} project={project} index={index} />
             ))}
           </div>
         </div>
@@ -458,10 +389,10 @@ export default function Home() {
       <section id="dashboards" className="section-shell py-20">
         <SectionIntro
           eyebrow="Dashboard Showcase"
-          title="Power BI dashboards designed for business review meetings."
-          text="Each dashboard connects a business objective to the KPIs and analysis workflow a stakeholder would need for action."
+          title="Power BI dashboard designed for sales performance review."
+          text="A focused dashboard showcase for the completed e-commerce analytics project, with placeholders ready for dashboard screenshots or embeds."
         />
-        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+        <div className="mt-10 grid gap-6 lg:grid-cols-1">
           {dashboards.map((dashboard, index) => (
             <motion.article key={dashboard.title} {...fadeUp} transition={{ duration: 0.5, delay: index * 0.06, ease: "easeOut" }} className="rounded-lg border border-line bg-white p-5 shadow-sm">
               <DashboardPreview title={dashboard.title} embedUrl={dashboard.embedUrl} />
@@ -486,9 +417,9 @@ export default function Home() {
       <section id="certifications" className="border-y border-line bg-surface py-20">
         <div className="section-shell">
           <SectionIntro
-            eyebrow="Certifications"
-            title="Credential cards that give recruiters quick validation."
-            text="Relevant analytics credentials that support the technical skills shown in the project work."
+            eyebrow="Certification"
+            title="Relevant data analysis training."
+            text="A concise certification section focused on Andrew's current data analysis credential."
           />
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {certifications.map((certificate, index) => (
@@ -499,19 +430,15 @@ export default function Home() {
                 whileHover={{ y: -4 }}
                 className="rounded-lg border border-line bg-white p-5 shadow-sm transition-shadow hover:shadow-soft"
               >
-                <div className="grid aspect-[4/3] place-items-center rounded-md border border-line bg-white">
+                <div className="grid aspect-[4/3] place-items-center rounded-md border border-line bg-surface">
                   <div className="text-center">
                     <Award className="mx-auto text-accent" size={44} aria-hidden="true" />
-                    <p className="mt-3 text-sm font-bold text-ink">{certificate.organization}</p>
+                    <p className="mt-3 text-sm font-bold text-ink">Certificate Upload Placeholder</p>
                   </div>
                 </div>
                 <h3 className="mt-5 text-lg font-bold text-ink">{certificate.title}</h3>
                 <p className="mt-2 text-sm text-muted">{certificate.organization}</p>
-                <p className="mt-1 text-sm font-semibold text-ink">Earned: {certificate.date}</p>
-                <a href={certificate.verification} className="focus-ring mt-5 inline-flex h-10 items-center gap-2 rounded-md border border-line px-4 text-sm font-semibold text-ink transition hover:border-accent hover:text-accent">
-                  Verify
-                  <ArrowUpRight size={15} aria-hidden="true" />
-                </a>
+                <p className="mt-1 text-sm font-semibold text-ink">{certificate.date}</p>
               </motion.article>
             ))}
           </div>
@@ -523,10 +450,10 @@ export default function Home() {
           <motion.div {...fadeUp}>
             <SectionLabel>Resume</SectionLabel>
             <h2 className="mt-3 text-3xl font-bold tracking-normal text-ink md:text-4xl">
-              A concise resume section for fast recruiter review.
+              A concise profile for Data Analyst and BI Analyst opportunities.
             </h2>
             <p className="mt-4 text-base leading-7 text-muted">
-              This section mirrors what hiring teams need to validate quickly: education, technical skills, projects, and certifications.
+              Andrew brings a strong analytical foundation, practical dashboard development skills, and a business-focused approach to insight generation.
             </p>
             <a href={`${basePath}/resume.pdf`} className="focus-ring mt-7 inline-flex h-12 items-center justify-center gap-2 rounded-md bg-accent px-5 text-sm font-semibold text-white transition hover:bg-accentDark">
               <ArrowDownToLine size={17} aria-hidden="true" />
@@ -563,15 +490,15 @@ export default function Home() {
           <motion.div {...fadeUp}>
             <p className="text-sm font-bold uppercase text-blue-200">Contact</p>
             <h2 className="mt-3 text-3xl font-bold tracking-normal md:text-4xl">
-              Let&apos;s talk about analytics roles, dashboards, and business questions.
+              Let&apos;s talk about data analyst and business intelligence opportunities.
             </h2>
             <p className="mt-4 text-base leading-7 text-blue-100">
-              I&apos;m ready to contribute to teams that need clean analysis, reliable reporting, and data stories that support better decisions.
+              I&apos;m open to roles where I can contribute through dashboard development, SQL analysis, data visualization, and practical business insight.
             </p>
             <div className="mt-8 grid gap-3">
-              <SocialLink href="mailto:hello@example.com" icon={Mail} label="hello@example.com" />
-              <SocialLink href="https://www.linkedin.com" icon={Linkedin} label="LinkedIn" />
-              <SocialLink href="https://github.com" icon={Github} label="GitHub" />
+              <SocialLink href="#contact" icon={Mail} label="Use contact form" />
+              <SocialLink href="https://www.linkedin.com/in/andrewudokang" icon={Linkedin} label="LinkedIn" />
+              <SocialLink href="https://github.com/andrewudokang" icon={Github} label="GitHub" />
             </div>
           </motion.div>
 
@@ -594,26 +521,115 @@ export default function Home() {
               <Send size={17} aria-hidden="true" />
               {formState === "sending" ? "Sending..." : "Send Message"}
             </button>
-            {formState === "sent" && <p className="mt-3 text-sm font-semibold text-green-700">Message sent successfully.</p>}
+            {formState === "sent" && <p className="mt-3 text-sm font-semibold text-green-500">Message sent successfully.</p>}
             {formState === "error" && (
-              <p className="mt-3 text-sm font-semibold text-red-700">
-                EmailJS is not configured yet. Add your EmailJS environment variables or use the email link.
+              <p className="mt-3 text-sm font-semibold text-orange-300">
+                EmailJS is not configured yet. Please use the email link for now.
               </p>
             )}
           </motion.form>
         </div>
       </section>
 
-      <footer className="border-t border-line py-8">
-        <div className="section-shell flex flex-col gap-3 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
-          <p>Data Analyst Portfolio. Built for recruiter scanning and business-focused case studies.</p>
-          <div className="flex items-center gap-2 text-ink">
-            <BookOpen size={16} aria-hidden="true" />
-            <span>Excel, SQL, Power BI, Python</span>
+      <Footer />
+    </main>
+  );
+}
+
+function Header() {
+  return (
+    <header className="sticky top-0 z-50 border-b border-line bg-white/90 backdrop-blur">
+      <nav className="section-shell flex h-16 items-center justify-between">
+        <Link href="/" className="focus-ring text-sm font-bold uppercase text-ink">
+          Andrew Udokang
+        </Link>
+        <div className="hidden items-center gap-6 lg:flex">
+          {navItems.map((item) => (
+            <a key={item} href={`/#${item.toLowerCase()}`} className="focus-ring text-sm font-medium text-muted transition hover:text-accent">
+              {item}
+            </a>
+          ))}
+        </div>
+        <a href={`${basePath}/resume.pdf`} className="focus-ring inline-flex h-10 items-center gap-2 rounded-md bg-accent px-4 text-sm font-semibold text-white transition hover:bg-accentDark">
+          <ArrowDownToLine size={16} aria-hidden="true" />
+          Resume
+        </a>
+      </nav>
+      <div className="section-shell flex h-11 items-center gap-5 overflow-x-auto border-t border-line lg:hidden">
+        {navItems.map((item) => (
+          <a key={item} href={`/#${item.toLowerCase()}`} className="focus-ring shrink-0 text-sm font-semibold text-muted transition hover:text-accent">
+            {item}
+          </a>
+        ))}
+      </div>
+    </header>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="border-t border-line py-8">
+      <div className="section-shell flex flex-col gap-3 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
+        <p>Andrew Udokang. Data Analyst portfolio for business intelligence and analytics roles.</p>
+        <div className="flex items-center gap-2 text-ink">
+          <BookOpen size={16} aria-hidden="true" />
+          <span>Power BI, SQL, Excel, Python</span>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+function ProjectCard({ project, index }: { project: (typeof projects)[number]; index: number }) {
+  const isComingSoon = project.status === "coming-soon";
+
+  return (
+    <motion.article
+      layout
+      initial={{ opacity: 0, y: 18 }}
+      animate={{ opacity: isComingSoon ? 0.58 : 1, y: 0 }}
+      transition={{ duration: 0.45, delay: index * 0.04, ease: "easeOut" }}
+      whileHover={isComingSoon ? undefined : { y: -5 }}
+      className={`overflow-hidden rounded-lg border border-line bg-white shadow-sm transition-shadow ${isComingSoon ? "grayscale" : "hover:shadow-soft"}`}
+    >
+      <ProjectPreview title={project.title} values={project.chart} />
+      <div className="p-6">
+        <div className="mb-4 flex flex-wrap items-center gap-2">
+          <span className="rounded-md bg-blue-50 px-3 py-1.5 text-xs font-bold text-accent">{project.category}</span>
+          {isComingSoon && (
+            <span className="inline-flex items-center gap-1 rounded-md border border-line px-3 py-1.5 text-xs font-bold text-muted">
+              <Lock size={13} aria-hidden="true" />
+              Coming Soon
+            </span>
+          )}
+        </div>
+        <h3 className="text-xl font-bold text-ink">{project.title}</h3>
+        <p className="mt-3 text-sm leading-6 text-muted">{project.description}</p>
+        <div className="mt-5">
+          <p className="text-sm font-bold text-ink">Tech Stack</p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {project.tools.map((tool) => (
+              <span key={tool} className="rounded-md border border-line bg-surface px-3 py-1.5 text-xs font-semibold text-muted">
+                {tool}
+              </span>
+            ))}
           </div>
         </div>
-      </footer>
-    </main>
+        <div className="mt-6">
+          {isComingSoon ? (
+            <button disabled className="inline-flex h-11 cursor-not-allowed items-center justify-center gap-2 rounded-md border border-line px-4 text-sm font-semibold text-muted opacity-70">
+              <Lock size={16} aria-hidden="true" />
+              See Details
+            </button>
+          ) : (
+            <Link href={project.href} className="focus-ring inline-flex h-11 items-center justify-center gap-2 rounded-md bg-accent px-4 text-sm font-semibold text-white transition hover:bg-accentDark">
+              See Details
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </Link>
+          )}
+        </div>
+      </div>
+    </motion.article>
   );
 }
 
@@ -628,15 +644,6 @@ function SectionIntro({ eyebrow, title, text }: { eyebrow: string; title: string
       <h2 className="mt-3 text-3xl font-bold tracking-normal text-ink md:text-4xl">{title}</h2>
       <p className="mt-4 text-base leading-7 text-muted">{text}</p>
     </motion.div>
-  );
-}
-
-function InfoBlock({ title, text }: { title: string; text: string }) {
-  return (
-    <div>
-      <p className="text-sm font-bold text-ink">{title}</p>
-      <p className="mt-2 text-sm leading-6 text-muted">{text}</p>
-    </div>
   );
 }
 
@@ -685,8 +692,8 @@ function DashboardPreview({ title, embedUrl }: { title: string; embedUrl: string
       <div className="grid h-full grid-cols-[0.8fr_1.2fr] gap-3">
         <div className="grid gap-3">
           <div className="rounded-md bg-white p-3">
-            <p className="text-xs font-bold text-muted">KPI</p>
-            <p className="mt-2 text-xl font-bold text-accent">92%</p>
+            <p className="text-xs font-bold text-muted">Sales</p>
+            <p className="mt-2 text-xl font-bold text-accent">2022-2024</p>
           </div>
           <div className="rounded-md bg-white p-3">
             <p className="text-xs font-bold text-muted">Trend</p>

@@ -13,9 +13,9 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://example.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Data Analyst Portfolio | Excel, SQL, Power BI, Python",
+  title: "Andrew Udokang | Data Analyst Portfolio",
   description:
-    "Data Analyst portfolio showcasing Excel, SQL, Power BI, Python, dashboard development, KPI analysis, and business insight storytelling.",
+    "Andrew Udokang's Data Analyst portfolio showcasing Power BI, SQL, Excel, Python, dashboard development, KPI analysis, and business intelligence storytelling.",
   keywords: [
     "Data Analyst",
     "Business Intelligence",
@@ -25,10 +25,10 @@ export const metadata: Metadata = {
     "Analytics Portfolio",
     "Dashboard Portfolio"
   ],
-  authors: [{ name: "Data Analyst" }],
-  creator: "Data Analyst",
+  authors: [{ name: "Andrew Udokang" }],
+  creator: "Andrew Udokang",
   openGraph: {
-    title: "Turning Data Into Business Insights",
+    title: "Andrew Udokang | Turning Data Into Business Insights",
     description:
       "Recruiter-friendly Data Analyst portfolio focused on Power BI dashboards, SQL projects, Excel analysis, Python, and business decision support.",
     type: "website",
@@ -52,11 +52,11 @@ export default function RootLayout({
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Data Analyst",
+    name: "Andrew Udokang",
     jobTitle: "Data Analyst",
     url: siteUrl,
     knowsAbout: ["Excel", "SQL", "Power BI", "Python", "Data Cleaning", "KPI Analysis", "Dashboard Development"],
-    sameAs: ["https://www.linkedin.com", "https://github.com"]
+    sameAs: ["https://www.linkedin.com/in/andrewudokang", "https://github.com/andrewudokang"]
   };
 
   return (
